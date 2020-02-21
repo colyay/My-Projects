@@ -1,0 +1,150 @@
+using System;
+
+namespace RPS
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string isPlaying = "Y";
+            int gameNumber = 1;
+            while (isPlaying == "Y")
+            {
+                Console.WriteLine("Collier's rock paper scissors! Best 2 out of 3");
+                Console.WriteLine("*****Game " + gameNumber + "*****");
+                //Random number
+                Random random = new Random();
+                int opponentMove = random.Next(1, 4);
+
+                //Game
+                int playerScore = 0, opponentScore = 0, round = 1;
+                string playerChoice = "", opponentChoice = "";
+                while (playerScore < 2 && opponentScore < 2)
+                {
+                    Console.WriteLine("--Round " + round + "--");
+                    Console.WriteLine("Choose your move: Rock(1) | Paper(2) | Scissors(3)");
+                    int playerMove = Convert.ToInt32(Console.ReadLine());
+                    opponentMove = random.Next(1, 4);
+
+                    //Input validity
+                    while (playerMove < 1 || playerMove > 3)
+                    {
+                        Console.WriteLine("Invalid input. Try again: ");
+                        playerMove = Convert.ToInt32(Console.ReadLine());
+                    }
+
+                    //Shows move as a string
+                    switch (playerMove)
+                    {
+                        case 1:
+                            playerChoice = "Rock";
+                            break;
+                        case 2:
+                            playerChoice = "Paper";
+                            break;
+                        case 3:
+                            playerChoice = "Scissors";
+                            break;
+                    }
+                    Console.WriteLine("You chose: " + playerChoice);
+                    Console.WriteLine("...");
+
+                    //Shows opponent move as a string
+                    switch (opponentMove)
+                    {
+                        case 1:
+                            opponentChoice = "Rock";
+                            break;
+                        case 2:
+                            opponentChoice = "Paper";
+                            break;
+                        case 3:
+                            opponentChoice = "Scissors";
+                            break;
+                    }
+                    Console.WriteLine("Opponent chose: " + opponentChoice + "\n");
+
+                    //Determine score
+                    if (opponentMove == 1)
+                    {
+                        if (playerMove == 1)
+                        {
+                            Console.WriteLine("You tied");
+                        }
+                        else if (playerMove == 2)
+                        {
+                            Console.WriteLine("Paper beats rock. You win");
+                            playerScore++;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Rock beats scissors. You lose");
+                            opponentScore++;
+                        }
+                    }
+                    else if (opponentMove == 2)
+                    {
+                        if (playerMove == 1)
+                        {
+                            Console.WriteLine("Paper beats rock. You lose.");
+                            opponentScore++;
+                        }
+                        else if (playerMove == 2)
+                        {
+                            Console.WriteLine("You tied");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Scissors beat paper. You win");
+                            playerScore++;
+                        }
+                    }
+                    else
+                    {
+                        if (playerMove == 1)
+                        {
+                            Console.WriteLine("Rock beats scissors. You win");
+                            playerScore++;
+                        }
+                        else if (playerMove == 2)
+                        {
+                            Console.WriteLine("Scissors beat paper. You lose");
+                            opponentScore++;
+                        }
+                        else
+                        {
+                            Console.WriteLine("You tied");
+                        }
+                    }
+
+                    //Display score
+                    Console.WriteLine("Player score: " + playerScore);
+                    Console.WriteLine("Opponent score: " + opponentScore + "\n");
+
+                    round++;
+                }
+                if (playerScore == 2)
+                {
+                    Console.WriteLine("You won!");
+                }
+                else
+                {
+                    Console.WriteLine("You lost");
+                }
+                
+                gameNumber++;
+
+                Console.WriteLine("Play again? (Y/N): ");
+                isPlaying = Console.ReadLine();
+                if (isPlaying == "N")
+                {
+                    Console.WriteLine("Goodbye!");
+                }
+            }
+            
+            
+
+
+        }
+    }
+}
